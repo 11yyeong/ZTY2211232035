@@ -1,0 +1,285 @@
+/* 全局样式重置与基础配置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', 'Arial', sans-serif; /* 适配中文显示 */
+}
+
+/* 页面背景渐变 + 轻微纹理 */
+body {
+    background: linear-gradient(120deg, #f8f9fa 0%, #e8f4f8 100%);
+    padding: 2rem;
+    background-attachment: fixed; /* 渐变背景固定，滚动不位移 */
+}
+
+/* 主容器：圆角+精致阴影+内边距优化 */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem 2.5rem; /* 上下内边距增加，更透气 */
+    border-radius: 16px; /* 更大圆角，更柔和 */
+    box-shadow: 0 8px 32px rgba(149, 157, 165, 0.15); /* 分层阴影，更立体 */
+    border: 1px solid rgba(255, 255, 255, 0.8); /* 细白边，提升精致感 */
+}
+
+/* 标题样式：渐变文字+字间距 */
+h1 {
+    text-align: center;
+    background: linear-gradient(90deg, #4299e1, #38b2ac); /* 渐变文字 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    letter-spacing: 2px; /* 字间距，更舒展 */
+    font-weight: 600;
+}
+
+/* 关键词选择区 */
+.keyword-select-section {
+    margin-bottom: 3rem; /* 增加底部间距，区分模块 */
+}
+
+.select-tip {
+    color: #4a5568;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+    padding-left: 0.5rem;
+    border-left: 3px solid #4299e1; /* 左侧小竖线，强调提示 */
+}
+
+.keyword-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* 按钮间距增大，更宽松 */
+}
+
+/* 关键词按钮：质感设计+hover/active动效 */
+.keyword-btn {
+    padding: 0.9rem 1.8rem;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    color: #2d3748;
+    border: none;
+    border-radius: 25px; /* 更大圆角，更圆润 */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 过渡更丝滑 */
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1); /* 轻微阴影 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 按钮hover效果：上浮+阴影加深 */
+.keyword-btn:hover {
+    background: linear-gradient(135deg, #e2e8f0 0%, #d1d9e6 100%);
+    transform: translateY(-2px); /* 轻微上浮 */
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+}
+
+/* 按钮选中效果：渐变背景+白色文字+强阴影 */
+.keyword-btn.active {
+    background: linear-gradient(135deg, #4299e1 0%, #38b2ac 100%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+}
+
+/* 结果展示区：网格间距优化 */
+.result-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; /* 卡片间距增大 */
+    margin-top: 1rem;
+}
+
+/* 响应式适配：移动端单列 */
+@media (max-width: 768px) {
+    .result-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .container {
+        padding: 2rem 1.5rem; /* 移动端内边距减小 */
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* 结果卡片：悬浮动效+精致边框 */
+.card {
+    background: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
+    padding: 2rem 1.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 卡片悬浮：上浮+阴影加深 */
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(149, 157, 165, 0.1);
+}
+
+/* 卡片标题：图标+文字+底部装饰线 */
+.card-title {
+    color: #2d3748;
+    margin-bottom: 1.8rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    position: relative;
+}
+
+/* 标题底部小横线装饰 */
+.card-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #4299e1, transparent);
+    border-radius: 1px;
+}
+
+/* 空状态提示：更柔和的样式 */
+.empty-tip {
+    color: #718096;
+    text-align: center;
+    padding: 2.5rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: rgba(240, 248, 255, 0.5);
+    border-radius: 8px;
+}
+
+/* 配色组样式 */
+.color-group {
+    display: flex;
+    gap: 1.5rem; /* 色块间距增大 */
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap; /* 移动端色块换行 */
+}
+
+/* 色块：圆角+精致边框+hover放大 */
+.color-block {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.color-block:hover {
+    transform: scale(1.05); /* 色块hover放大 */
+}
+
+/* 色号文字：更柔和的颜色 */
+.color-code {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: #4a5568;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* 色号用途：更小的字重 */
+.color-scene {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-top: 0.3rem;
+    text-align: center;
+}
+
+/* 短句项：渐变边框+轻微阴影 */
+.phrase-item {
+    background: linear-gradient(180deg, white 0%, #f8f9fa 100%);
+    padding: 1.2rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid #4299e1; /* 左侧边框加粗 */
+    color: #2d3748;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.phrase-item:hover {
+    transform: translateX(3px); /* 短句项hover右移 */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 排版示例：更精致的样式 */
+.layout-demo {
+    background: linear-gradient(180deg, white 0%, #f8f9fa 100%);
+    padding: 1.8rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.8rem;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* 居中排版样式 */
+.layout1 {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.layout1 h3 {
+    color: #4299e1;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.layout1 p {
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+/* 图文排版样式 */
+.layout2 {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* 移动端图文换行 */
+}
+
+/* 图片占位符：渐变背景+图标 */
+.layout2 .layout-img-placeholder {
+    width: 85px;
+    height: 85px;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d1e7dd 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4299e1;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.layout2 .layout-text {
+    flex: 1;
+}
+
+.layout2 h3 {
+    color: #38b2ac;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.layout2 p {
+    color: #718096;
+    font-size: 0.9rem;
+}
