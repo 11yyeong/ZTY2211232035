@@ -26,7 +26,7 @@ h1 {
     font-size: 2rem;
 }
 
-/* 关键词选择区样式 */
+/* 关键词选择区 */
 .keyword-select-section {
     margin-bottom: 2.5rem;
 }
@@ -63,7 +63,7 @@ h1 {
     color: white;
 }
 
-/* 结果展示区样式 */
+/* 结果展示区 */
 .result-section {
     display: grid;
     grid-template-columns: 1fr 1fr;

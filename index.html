@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简文案灵感生成器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>极简文案灵感生成器</h1>
+        <!-- 关键词选择区 -->
+        <div class="keyword-select-section">
+            <p class="select-tip">选择关键词，一键获取灵感：</p>
+            <div class="keyword-tags">
+                <button class="keyword-btn" data-key="star">星空</button>
+                <button class="keyword-btn" data-key="book">书籍</button>
+                <button class="keyword-btn" data-key="dessert">甜点</button>
+                <button class="keyword-btn" data-key="forest">森林</button>
+                <button class="keyword-btn" data-key="camera">相机</button>
+                <button class="keyword-btn" data-key="music">音乐</button>
+                <button class="keyword-btn" data-key="travel">旅行</button>
+                <button class="keyword-btn" data-key="coffee">咖啡</button>
+            </div>
+        </div>
+        <!-- 结果展示区 -->
+        <div class="result-section">
+            <div class="card">
+                <h2 class="card-title">🎨 配色方案推荐</h2>
+                <div id="color-result" class="empty-tip">选择关键词，获取专属配色</div>
+            </div>
+            <div class="card">
+                <h2 class="card-title">✍️ 适配短句</h2>
+                <div id="phrase-result" class="empty-tip">选择关键词，获取专属短句</div>
+            </div>
+            <div class="card">
+                <h2 class="card-title">📝 排版样式展示</h2>
+                <div id="layout-result" class="empty-tip">选择关键词，获取专属排版</div>
+            </div>
+            <div class="card">
+                <h2 class="card-title">💡 配色小贴士</h2>
+                <div id="tip-result" class="empty-tip">选择关键词，获取配色建议</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 独立配置对象，用唯一key区分，彻底避免冲突
+        const config = {
+            star: {
+                color1: 'rgb(10,15,40)',
+                color2: 'rgb(40,60,120)',
+                color3: 'rgb(100,140,255)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '抬头遇见星空，是宇宙写给人间的诗',
+                phrase2: '星光落在肩头，晚风偷走所有忧愁',
+                phrase3: '把心事说给星空听，它会还你一片安宁',
+                tip: '深色系为主，搭配高饱和蓝色/紫色，模拟星空的神秘与浪漫'
+            },
+            book: {
+                color1: 'rgb(40,30,20)',
+                color2: 'rgb(80,60,40)',
+                color3: 'rgb(180,150,120)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '翻开一本书，就是走进一个全新的世界',
+                phrase2: '文字在书页间流淌，思想在阅读中生长',
+                phrase3: '好书如良友，陪你度过每一段独处时光',
+                tip: '低饱和度的棕色/米色，营造复古、沉静的阅读氛围'
+            },
+            dessert: {
+                color1: 'rgb(220,80,120)',
+                color2: 'rgb(255,160,180)',
+                color3: 'rgb(255,220,230)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '一口甜点入口，烦恼瞬间被温柔融化',
+                phrase2: '甜蜜是生活的解药，治愈所有不开心',
+                phrase3: '每一块甜点，都藏着对生活的热爱',
+                tip: '高饱和粉色/黄色，突出甜点的甜蜜感，吸引视觉注意力'
+            },
+            forest: {
+                color1: 'rgb(10,50,20)',
+                color2: 'rgb(30,80,40)',
+                color3: 'rgb(80,180,100)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '走进森林，听树叶沙沙，与自然对话',
+                phrase2: '森林的气息里，藏着最治愈的生命力',
+                phrase3: '踩过落叶的声响，是森林专属的乐章',
+                tip: '绿色系为主，搭配大地色，还原自然场景的清新与生机'
+            },
+            camera: {
+                color1: 'rgb(30,30,30)',
+                color2: 'rgb(80,80,80)',
+                color3: 'rgb(180,180,180)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '按下快门，定格时光里的温柔瞬间',
+                phrase2: '镜头里的世界，藏着不为人知的细节',
+                phrase3: '用相机记录生活，让每一刻都有迹可循',
+                tip: '黑白灰中性色为主，体现相机的专业与质感'
+            },
+            music: {
+                color1: 'rgb(153,50,204)',
+                color2: 'rgb(255,165,0)',
+                color3: 'rgb(255,20,147)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '让旋律治愈心灵，让节奏点燃热情',
+                phrase2: '耳机分我一半，共享此刻的心动旋律',
+                phrase3: '音乐是生活的解药，治愈所有疲惫',
+                tip: '高饱和撞色，体现音乐的热情与动感'
+            },
+            travel: {
+                color1: 'rgb(30,144,255)',
+                color2: 'rgb(240,230,140)',
+                color3: 'rgb(135,206,235)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '身体和灵魂，总要有一个在路上',
+                phrase2: '踏遍山河，记录每一处不期而遇的美好',
+                phrase3: '用脚步丈量世界，用镜头定格瞬间',
+                tip: '蓝黄撞色，体现旅行的活力与自由'
+            },
+            coffee: {
+                color1: 'rgb(210,180,140)',
+                color2: 'rgb(139,69,19)',
+                color3: 'rgb(245,222,179)',
+                role1: '标题色',
+                role2: '正文色',
+                role3: '强调色',
+                phrase1: '一杯温热的咖啡，是时光里的温柔慰藉',
+                phrase2: '研磨岁月的香，抿一口人间烟火',
+                phrase3: '慢下来，与咖啡共度一段慵懒时光',
+                tip: '暖色调搭配，适合营造温馨、复古的咖啡场景'
+            }
+        };
+
+        // 绑定按钮事件，直接读取对应配置
+        document.querySelectorAll('.keyword-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const key = this.dataset.key;
+                const data = config[key];
+
+                // 渲染配色
+                document.getElementById('color-result').innerHTML = `
+                    <div class="color-group">
+                        <div>
+                            <div class="color-block" style="background-color: ${data.color1}"></div>
+                            <div class="color-code">${data.color1}</div>
+                            <div class="color-scene">${data.role1}</div>
+                        </div>
+                        <div>
+                            <div class="color-block" style="background-color: ${data.color2}"></div>
+                            <div class="color-code">${data.color2}</div>
+                            <div class="color-scene">${data.role2}</div>
+                        </div>
+                        <div>
+                            <div class="color-block" style="background-color: ${data.color3}"></div>
+                            <div class="color-code">${data.color3}</div>
+                            <div class="color-scene">${data.role3}</div>
+                        </div>
+                    </div>
+                `;
+
+                // 渲染短句
+                document.getElementById('phrase-result').innerHTML = `
+                    <div class="phrase-item">${data.phrase1}</div>
+                    <div class="phrase-item">${data.phrase2}</div>
+                    <div class="phrase-item">${data.phrase3}</div>
+                `;
+
+                // 渲染排版
+                document.getElementById('layout-result').innerHTML = `
+                    <div class="layout-demo layout1">
+                        <h3>${data.phrase1}</h3>
+                        <p style="color: #718096; margin-top: 0.5rem;">—— 居中排版（适合标题+副标题组合）</p>
+                    </div>
+                    <div class="layout-demo layout2">
+                        <div class="layout-img-placeholder">图</div>
+                        <div class="layout-text">
+                            <h3>${data.phrase2}</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">图文排版（适合正文内容展示）</p>
+                        </div>
+                    </div>
+                `;
+
+                // 渲染小贴士
+                document.getElementById('tip-result').textContent = data.tip;
+
+                // 选中样式
+                document.querySelectorAll('.keyword-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
